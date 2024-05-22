@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="cat" class="com.example.animal.Cat">
+        <property name="name" value="Whiskers"/>
+        <property name="age" value="3"/>
+    </bean>
+
+    <bean id="dog" class="com.example.animal.Dog">
+        <property name="name" value="Buddy"/>
+        <property name="age" value="5"/>
+    </bean>
+
+    <bean id="bird" class="com.example.animal.Bird">
+        <property name="name" value="Sunny"/>
+        <property name="age" value="2"/>
+    </bean>
+
+    <bean id="veterinarian" class="com.example.animal.Veterinarian">
+        <property name="animals" ref="cat"/>
+        <property name="animals" ref="dog"/>
+        <property name="animals" ref="bird"/>
+    </bean>
+
+
+    <bean id="animalShelter" class="com.example.animal.AnimalShelter">
+        <property name="veterinarian" ref="veterinarian"/>
+    </bean>
+
+</beans>
