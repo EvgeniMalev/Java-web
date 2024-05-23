@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="cat" class="com.example.animal.Cat">
+        <constructor-arg name="name" value="Whiskers"/>
+        <constructor-arg name="age" value="3"/>
+    </bean>
+
+    <bean id="dog" class="com.example.animal.Dog">
+        <constructor-arg name="name" value="Buddy"/>
+        <constructor-arg name="age" value="5"/>
+    </bean>
+
+    <bean id="bird" class="com.example.animal.Bird">
+        <constructor-arg name="name" value="Sunny"/>
+        <constructor-arg name="age" value="2"/>
+    </bean>
+
+    <bean id="veterinarian" class="com.example.animal.Veterinarian">
+        <property name="animals">
+            <list>
+                <ref bean="cat"/>
+                <ref bean="dog"/>
+                <ref bean="bird"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="animalShelter" class="com.example.animal.AnimalShelter">
+        <property name="veterinarian" ref="veterinarian"/>
+    </bean>
+
+</beans>
