@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="helium" class="com.javatpoint.Helium" factory-method="getHelium">
+        <property name="period" value="1" />
+        <property name="density" value="0.0001786" />
+        <property name="boilingPoint" value="-268.93" />
+        <property name="quantity" value="20" />
+    </bean>
+
+</beans>
