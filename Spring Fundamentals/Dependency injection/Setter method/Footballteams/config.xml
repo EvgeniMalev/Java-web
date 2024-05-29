@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="stadium1" class="com.spring.FootballTeam$Stadium">
+        <property name="name" value="Stadium A"/>
+        <property name="capacity" value="30000"/>
+    </bean>
+
+    <bean id="stadium2" class="com.spring.FootballTeam$Stadium">
+        <property name="name" value="Stadium B"/>
+        <property name="capacity" value="25000"/>
+    </bean>
+
+    <bean id="stadium3" class="com.spring.FootballTeam$Stadium">
+        <property name="name" value="Stadium C"/>
+        <property name="capacity" value="20000"/>
+    </bean>
+
+    <bean id="player1" class="com.spring.FootballTeam$Player">
+        <property name="name" value="Player One"/>
+        <property name="position" value="Forward"/>
+    </bean>
+
+    <bean id="player2" class="com.spring.FootballTeam$Player">
+        <property name="name" value="Player Two"/>
+        <property name="position" value="Midfielder"/>
+    </bean>
+
+    <bean id="player3" class="com.spring.FootballTeam$Player">
+        <property name="name" value="Player Three"/>
+        <property name="position" value="Defender"/>
+    </bean>
+
+    <bean id="teamRank1" class="com.spring.FootballTeam$TeamRank">
+        <property name="rank" value="1"/>
+        <property name="points" value="55"/>
+    </bean>
+
+    <bean id="teamRank2" class="com.spring.FootballTeam$TeamRank">
+        <property name="rank" value="2"/>
+        <property name="points" value="50"/>
+    </bean>
+
+    <bean id="teamRank3" class="com.spring.FootballTeam$TeamRank">
+        <property name="rank" value="3"/>
+        <property name="points" value="45"/>
+    </bean>
+
+    <bean id="footballTeam1" class="com.spring.FootballTeam">
+        <property name="teamName" value="Spartak Polski Senovets"/>
+        <property name="stadium" ref="stadium1"/>
+        <property name="players">
+            <list>
+                <ref bean="player1"/>
+                <ref bean="player2"/>
+            </list>
+        </property>
+        <property name="teamRank" ref="teamRank1"/>
+    </bean>
+
+    <bean id="footballTeam2" class="com.spring.FootballTeam">
+        <property name="teamName" value="CSKA Vishovgrad"/>
+        <property name="stadium" ref="stadium2"/>
+        <property name="players">
+            <list>
+                <ref bean="player2"/>
+                <ref bean="player3"/>
+            </list>
+        </property>
+        <property name="teamRank" ref="teamRank2"/>
+    </bean>
+
+    <bean id="footballTeam3" class="com.spring.FootballTeam">
+        <property name="teamName" value="Zemedelets Kozlovets"/>
+        <property name="stadium" ref="stadium3"/>
+        <property name="players">
+            <list>
+                <ref bean="player1"/>
+                <ref bean="player3"/>
+            </list>
+        </property>
+        <property name="teamRank" ref="teamRank3"/>
+    </bean>
+</beans>
