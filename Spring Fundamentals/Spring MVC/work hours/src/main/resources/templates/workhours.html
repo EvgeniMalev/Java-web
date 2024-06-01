@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Workhours</title>
+</head>
+<body>
+<h1>Work Hours</h1>
+<table>
+    <tr>
+        <th>Employee Name</th>
+        <th>Hours Worked</th>
+    </tr>
+    <tr th:each="workhours : ${workhoursList}">
+        <td th:text="${workhours.employeeName}">Employee Name</td>
+        <td th:text="${workhours.hoursWorked}">Hours Worked</td>
+    </tr>
+</table>
+</body>
+</html>
