@@ -1,40 +1,41 @@
-package com.example.soccerapp.controller;
 
-import com.example.soccerapp.entity.Coach;
-import com.example.soccerapp.service.CoachService;
-import org.springframework.beans.factory.annotation.Autowired;
+package com.plannerapp.controller;
+
+import com.example.soccerapp.model.dto.task.TaskHomeViewModel;
+import com.example.soccerapp.service.TaskService;
+import com.example.soccerapp.service.impl.LoggedUser;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/coaches")
-public class CoachController {
+public class HomeController {
 
-    @Autowired
-    private CoachService coachService;
+    private final TaskService taskService;
+    private final LoggedUser loggedUser;
 
-    @GetMapping
-    public String listCoaches(Model model) {
-        model.addAttribute("coaches", coachService.findAll());
-        return "coach-list";
+    public HomeController(TaskService taskService, LoggedUser loggedUser) {
+        this.taskService = taskService;
+        this.loggedUser = loggedUser;
     }
 
-    @PostMapping
-    public String saveCoach(@ModelAttribute Coach coach) {
-        coachService.save(coach);
-        return "redirect:/coaches";
+    @GetMapping("/")
+    public ModelAndView index() {
+        if (loggedUser.isLogged()) {
+            return new ModelAndView("redirect:/home");
+        }
+
+        return new ModelAndView("index");
     }
 
-    @GetMapping("/{id}")
-    public String getCoach(@PathVariable Long id, Model model) {
-        model.addAttribute("coach", coachService.findById(id));
-        return "coach-details";
-    }
+    @GetMapping("/home")
+    public ModelAndView home() {
+        if (!loggedUser.isLogged()) {
+            return new ModelAndView("redirect:/");
+        }
 
-    @DeleteMapping("/{id}")
-    public String deleteCoach(@PathVariable Long id) {
-        coachService.deleteById(id);
-        return "redirect:/coaches";
+        TaskHomeViewModel viewModel = taskService.getHomeViewData(loggedUser.getUsername());
+
+        return new ModelAndView("home", "tasks", viewModel);
     }
 }
