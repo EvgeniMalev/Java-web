@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons::head"></head>
+<body>
+<header th:replace="fragments/commons::nav"></header>
+<main>
+    <div class="container bg-blur rounded mt-5 ">
+        <h1>This is App for soccer results</h1>
+       <p>Results from all regional football leagues</p>
+        <hr class="my-3 bg-white w-50"/>
+
+        <p class="h4">
+             More information at the following links:
+             www.moresports.com
+             www.livesports.org
+        </p>
+        <hr class="my-3 bg-white w-75"/>
+
+        <h3>
+            <a class="text-primary" th:href="@{/login}">Login</a>
+            to Your account
+            <a class="text-primary" th:href="@{/register}">Register</a>
+        </h3>
+    </div>
+</main>
+<footer th:replace="fragments/commons::footer"></footer>
+</body>
+</html>
