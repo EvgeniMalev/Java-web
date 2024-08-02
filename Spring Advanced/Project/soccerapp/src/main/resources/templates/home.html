@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons::head"></head>
+<body>
+<header th:replace="fragments/commons::nav"></header>
+<main>
+    <div class="container-fluid bg-blur rounded mt-1 mb-4 d-flex justify-content-center" id="big-div">
+
+        <div class="col-5">
+            <h3 class="bg-gray text-dark mb-0 mt-2">Today's Matches</h3>
+            <h6 class="bg-gray text-dark mb-0 mt-0" th:text="'User: ' + ${@loggedUser.username}"></h6>
+            <div class="bg-dark rounded m-auto" style="height: 67vh; overflow: auto">
+                <ul th:each="match : ${matches.todayMatches}" class="list-group list-group-horizontal text-dark">
+                    <li class="list-group-item bg-warning">
+                        <table>
+                            <tr>
+                                <td style="width: 10%"><img class="mr-2" src="/img/soccer-ball.png" alt="Soccer Ball" width="35px" height="35px"></td>
+                                <td style="width: 40%" th:text="${match.homeTeam}">{homeTeam}</td>
+                                <td style="width: 10%" th:text="${match.score}">{score}</td>
+                                <td style="width: 40%" th:text="${match.awayTeam}">{awayTeam}</td>
+                            </tr>
+                        </table>
+                    </li>
+                    <li class="list-group-item list-group-item-warning text-dark">
+                        <a th:text="'Date: ' + ${match.date}">Date: {date}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-5">
+            <h3 class="mySticky bg-gray text-dark mb-0 mt-2">Upcoming Matches</h3>
+            <h6 class="mySticky bg-gray text-dark mb-0 mt-0" th:text="${matches.upcomingSize} + ' Matches'">{upcomingMatches} Matches</h6>
+            <div class="bg-dark rounded m-auto" style="height: 67vh; overflow: auto">
+                <ul th:each="match : ${matches.upcomingMatches}" class="list-group list-group-horizontal text-dark">
+                    <li class="list-group-item bg-warning">
+                        <table>
+                            <tr>
+                                <td style="width: 10%"><img class="mr-2" src="/img/soccer-ball.png" alt="Soccer Ball" width="35px" height="35px"></td>
+                                <td style="width: 40%" th:text="${match.homeTeam}">{homeTeam}</td>
+                                <td style="width: 10%">vs</td>
+                                <td style="width: 40%" th:text="${match.awayTeam}">{awayTeam}</td>
+                            </tr>
+                        </table>
+                    </li>
+                    <li class="list-group-item list-group-item-warning text-dark">
+                        <a th:text="'Date: ' + ${match.date}">Date: {date}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="fragments/commons::footer"></footer>
+</body>
+</html>
