@@ -77,7 +77,7 @@ public class GameServiceImpl implements GameService {
             User user = userRepository.findByUsername(loggedUser.getUsername());
             Game game = optionalGame.get();
 
-            ga,e.setBoughtBy(user);
+            game.setBoughtBy(user);
 
             game.Repository.save(game);
         }
