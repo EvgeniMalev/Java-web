@@ -6,8 +6,6 @@ import java.util.List;
 public class TaskHomeViewModel {
     private String username;
     private List<TaskViewModel> tasks;
-
-    // Constructor
     public TaskHomeViewModel() {
     }
 
@@ -16,7 +14,6 @@ public class TaskHomeViewModel {
         this.tasks = tasks;
     }
 
-    // Getters and Setters
     public String getUsername() {
         return username;
     }
@@ -39,7 +36,6 @@ class TaskViewModel {
     private String description;
     private boolean completed;
 
-    // Constructor
     public TaskViewModel() {
     }
 
@@ -49,7 +45,6 @@ class TaskViewModel {
         this.completed = completed;
     }
 
-    // Getters and Setters
     public String getTitle() {
         return title;
     }
