@@ -1,7 +1,7 @@
 
 package com.soccerapp.controller;
 
-import com.soccerapp.model.OfferCreateBindingModel;
+import com.soccerapp.model.GameCreateBindingModel;
 import com.soccerapp.service.LoggedUser;
 import com.soccerapp.service.GameService;
 import org.springframework.stereotype.Controller;
@@ -14,11 +14,11 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/offers")
+@RequestMapping("/games")
 public class GameController {
 
     private final LoggedUser loggedUser;
-    private final OfferService offerService;
+    private final GameService offerService;
 
     public GameController(LoggedUser loggedUser, GameService gameService) {
         this.loggedUser = loggedUser;
@@ -31,7 +31,7 @@ public class GameController {
             return new ModelAndView("redirect:/login");
         }
 
-        return new ModelAndView("offer-add");
+        return new ModelAndView("game-add");
     }
 
     @PostMapping("/create")
