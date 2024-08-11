@@ -55,6 +55,12 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
+    public void record(UUID id, UUID playerId) {
+    
+    incrementGoals(playerId);
+}
+    
+    @Override
     public boolean create(GamesCreateBindingModel gamesCreateBindingModel) {
         Result result = resultRepository.findByName(gameCreateBindingModel.getResult());
         User user = userRepository.findByUsername(loggedUser.getUsername());
