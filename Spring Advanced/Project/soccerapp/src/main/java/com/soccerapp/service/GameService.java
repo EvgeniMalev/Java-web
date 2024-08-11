@@ -9,7 +9,9 @@ public interface GameService {
 
     GameHomeDTO getGameFotHomePage();
 
-    boolean create(GameCreateBindingModel gameCreateBindingModel);
 
-    void buy(UUID id);
+    boolean create(GameCreateBindingModel gameCreateBindingModel);
+      void record(UUID id);
+      void record(UUID id, UUID playerId); 
+
 }
