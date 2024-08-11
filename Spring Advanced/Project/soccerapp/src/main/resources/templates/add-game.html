@@ -74,6 +74,22 @@
         </div>
 
     </form>
+
+<form action="/games/record/{{game.id}}" method="post">
+
+    <div>
+        <label for="scoringPlayer">Player who scored:</label>
+        <select id="scoringPlayer" name="scoringPlayerId">
+            <!-- Populate with players from the selected team -->
+            <option th:each="player : ${players}" th:value="${player.id}" th:text="${player.name}"></option>
+        </select>
+    </div>
+
+    <button type="submit">Record Goal</button>
+</form>
+      
+
+      
 </main>
 <footer th:replace="fragments/commons::footer"></footer>
 </body>
