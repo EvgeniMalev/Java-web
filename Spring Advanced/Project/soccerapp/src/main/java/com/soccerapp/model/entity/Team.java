@@ -18,6 +18,11 @@ public class Team {
     @OneToMany(mappedBy = "awayTeam")
     private List<Match> awayMatches;
 
+    @OneToMany(mappedBy = "team")
+    private List<Player> players;
+
+    // Getters and Setters
+
     public UUID getId() {
         return id;
     }
@@ -48,5 +53,13 @@ public class Team {
 
     public void setAwayMatches(List<Match> awayMatches) {
         this.awayMatches = awayMatches;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<Player> players) {
+        this.players = players;
     }
 }
