@@ -46,6 +46,8 @@ public class GameController {
         return new ModelAndView(view);
     }
 
+
+    
     @PostMapping("/start")
     public ModelAndView create(GameCreateBindingModel gameCreateBindingModel) {
         if (!loggedUser.isLogged()) {
@@ -58,6 +60,18 @@ public class GameController {
         return new ModelAndView(view);
     }
 
+@PostMapping("/record/{id}")
+public ModelAndView recordGoal(@PathVariable("id") UUID id, @RequestParam("scoringPlayerId") UUID playerId) {
+    if (!loggedUser.isLogged()) {
+        return new ModelAndView("redirect:/login");
+    }
+    
+    gameService.record(id);
+    playerService.incrementGoals(playerId);  // Increment the goal count for the player
+    
+    return new ModelAndView("redirect:/home");
+}
+    
     @PostMapping("/finish")
     public ModelAndView create(GameCreateBindingModel gameCreateBindingModel) {
         if (!loggedUser.isLogged()) {
