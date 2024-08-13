@@ -1,52 +1,70 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/commons::head"></head>
+<head th:replace="fragments/commons::head">
+    <style>
+        body {
+            background-color: #203fcf;
+            color: white;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: black;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 18pt;
+        }
+
+        button {
+            background-color: #4ba3e5;
+            color: white;
+            border: 1px solid white;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            font-size: 12pt;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        button:hover {
+            background-color: #3498db;
+        }
+
+        input, textarea {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 12pt;
+            color: black;
+        }
+        a {
+            color: white;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
 <body>
 <header th:replace="fragments/commons::nav"></header>
 <main>
     <div class="container-fluid bg-blur rounded mt-1 mb-4 d-flex justify-content-center" id="big-div">
 
-        <div class="col-5">
-            <h3 class="bg-gray text-dark mb-0 mt-2">Today's Matches</h3>
-            <h6 class="bg-gray text-dark mb-0 mt-0" th:text="'User: ' + ${@loggedUser.username}"></h6>
-            <div class="bg-dark rounded m-auto" style="height: 67vh; overflow: auto">
-                <ul th:each="match : ${matches.todayMatches}" class="list-group list-group-horizontal text-dark">
-                    <li class="list-group-item bg-warning">
-                        <table>
-                            <tr>
-                                <td style="width: 10%"><img class="mr-2" src="/img/soccer-ball.png" alt="Soccer Ball" width="35px" height="35px"></td>
-                                <td style="width: 40%" th:text="${match.homeTeam}">{homeTeam}</td>
-                                <td style="width: 10%" th:text="${match.score}">{score}</td>
-                                <td style="width: 40%" th:text="${match.awayTeam}">{awayTeam}</td>
-                            </tr>
-                        </table>
-                    </li>
-                    <li class="list-group-item list-group-item-warning text-dark">
-                        <a th:text="'Date: ' + ${match.date}">Date: {date}</a>
-                    </li>
-                </ul>
-            </div>
+        <div class="col-10 text-center">
+            <h1 th:text="${#authentication.principal != null ? 'Soccer App' : 'Welcome to Soccer App'}">Welcome to Soccer App</h1>
         </div>
 
-        <div class="col-5">
-            <h3 class="mySticky bg-gray text-dark mb-0 mt-2">Upcoming Matches</h3>
-            <h6 class="mySticky bg-gray text-dark mb-0 mt-0" th:text="${matches.upcomingSize} + ' Matches'">{upcomingMatches} Matches</h6>
-            <div class="bg-dark rounded m-auto" style="height: 67vh; overflow: auto">
-                <ul th:each="match : ${matches.upcomingMatches}" class="list-group list-group-horizontal text-dark">
-                    <li class="list-group-item bg-warning">
-                        <table>
-                            <tr>
-                                <td style="width: 10%"><img class="mr-2" src="/img/soccer-ball.png" alt="Soccer Ball" width="35px" height="35px"></td>
-                                <td style="width: 40%" th:text="${match.homeTeam}">{homeTeam}</td>
-                                <td style="width: 10%">vs</td>
-                                <td style="width: 40%" th:text="${match.awayTeam}">{awayTeam}</td>
-                            </tr>
-                        </table>
-                    </li>
-                    <li class="list-group-item list-group-item-warning text-dark">
-                        <a th:text="'Date: ' + ${match.date}">Date: {date}</a>
-                    </li>
-                </ul>
+        <div class="col-10 text-center mb-4" th:if="${#authentication.principal == null}">
+            <button class="btn btn-primary mx-2" onclick="window.location.href='/login'">Login</button>
+            <button class="btn btn-primary mx-2" onclick="window.location.href='/register'">Register</button>
+        </div>
+
+        <div class="col-10 text-center" th:if="${#authentication.principal != null}">
+            <button class="btn btn-primary mx-2" onclick="window.location.href='/add-game'">Add Game</button>
+            <button class="btn btn-primary mx-2" onclick="window.location.href='/add-player'">Add Player</button>
+            <div class="mt-4">
+                <a href="/association-info.html" class="text-white">Association Info</a><br/>
+                <a href="/game-details.html" class="text-white">Game Details</a><br/>
+                <a href="/player-details.html" class="text-white">Player Details</a><br/>
+                <a href="/players-statistics.html" class="text-white">Players Statistics</a><br/>
+                <a href="/teams-statistics.html" class="text-white">Teams Statistics</a>
             </div>
         </div>
     </div>
