@@ -1,21 +1,66 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/commons::head"></head>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons::head">
+    <style>
+        body {
+            background-color: #203fcf;
+            color: white;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        h1 {
+            color: black;
+            font-size: 18pt;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        input.form-control {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 12pt;
+            color: black;
+        }
+        button.btn {
+            background-color: #4ba3e5;
+            color: white;
+            border: 1px solid white;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            font-size: 12pt;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        button.btn:hover {
+            background-color: #3498db;
+        }
+        .hr-3 {
+            height: 3px;
+            border: none;
+            background-color: white;
+        }
+        .bg-blur {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .label-holder p {
+            margin-bottom: 0;
+        }
+        .form-group label {
+            color: white;
+        }
+        .text-danger {
+            color: red;
+        }
+    </style>
+</head>
 <body>
 <header th:replace="fragments/commons::nav"></header>
 <main>
     <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Login</span></h1>
-    <hr class="hr-3 w-25 bg-white"/>
+    <hr class="hr-3 w-25 mx-auto"/>
     <form class="mx-auto w-25 bg-blur" th:action="@{/login}" th:method="POST">
-
-
         <div class="text-danger">Error messages</div>
         <div class="text-danger">Your password or username are incorrect!</div>
 
         <div class="form-group">
             <div class="label-holder text-white d-flex justify-content-center">
-              <p>You can have access to the app after Log in to the page</p>
+                <p>You can have access to the app after logging in to the page</p>
                 <label for="username" class="h3 mb-2">Username</label>
             </div>
             <input type="text" class="form-control" id="username" name="username"/>
@@ -29,11 +74,15 @@
         </div>
 
         <div class="button-holder d-flex justify-content-center">
-            <button type="submit" class="btn btn-warning  mb-3">Login</button>
+            <button type="submit" class="btn btn-primary mb-3">Login</button>
         </div>
-
+        <div class="text-center mt-3">
+            <a href="/forgot-password" class="text-white">Forgot your password?</a>
+        </div>
     </form>
 </main>
 <footer th:replace="fragments/commons::footer"></footer>
 </body>
 </html>
+
+
