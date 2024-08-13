@@ -21,7 +21,6 @@ public class Team {
     @OneToMany(mappedBy = "team")
     private List<Player> players;
 
-    // Getters and Setters
 
     public UUID getId() {
         return id;
