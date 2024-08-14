@@ -1,95 +1,116 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/commons::head"></head>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons::head">
+    <style>
+        body {
+            background-color: #203fcf;
+            color: white;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        h1 {
+            color: black;
+            font-size: 18pt;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        input.form-control, select.form-control, textarea.form-control {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 12pt;
+            color: black;
+        }
+        button.btn {
+            background-color: #4ba3e5;
+            color: white;
+            border: 1px solid white;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            font-size: 12pt;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        button.btn:hover {
+            background-color: #3498db;
+        }
+        .hr-3 {
+            height: 3px;
+            border: none;
+            background-color: white;
+        }
+        .bg-blur {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .label-holder p {
+            margin-bottom: 0;
+        }
+        .form-group label {
+            color: white;
+        }
+        .text-danger {
+            color: red;
+        }
+    </style>
+</head>
 <body>
 <header th:replace="fragments/commons::nav"></header>
 <main>
     <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add Game</span></h1>
-    <hr class="hr-3 w-25 bg-white"/>
+    <hr class="hr-3 w-25 mx-auto"/>
 
-    <form class="mx-auto w-25 bg-blur rounded" th:method="POST" th:action="@{/games/create}">
-
+    <form class="mx-auto w-50 bg-blur rounded" th:method="POST" th:action="@{/games/create}">
+        
+        <!-- Team 1 -->
         <div class="form-group">
-            <div class="label-holder text-white textCol d-flex justify-content-center">
-                <label for="description" class="h4 mb-2">Description</label>
+            <div class="label-holder d-flex justify-content-center">
+                <label for="team1" class="h4 mb-2">Team 1</label>
             </div>
-            <textarea class="form-control" id="description" name="description"></textarea>
-            <small class="text-danger" th:if="${#fields.hasErrors('description')}"
-                   th:errors="*{description}">Description error message</small>
-        </div>
-
-        <div class="form-group">
-            <div class="label-holder text-white textCol d-flex justify-content-center">
-                <label for="temperature" class="h4 mb-2">Temperature</label>
-            </div>
-            <input type="number" step="0.01" class="form-control" id="temperature" name="temperature"/>
-            <small class="text-danger" th:if="${#fields.hasErrors('temperature')}"
-                   th:errors="*{temperature}">Temperature error message</small>
-        </div>
-
-        <div class="form-group">
-            <div class="label-holder text-white textCol d-flex justify-content-center">
-                <label for="duration" class="h4 mb-2">Duration (minutes)</label>
-            </div>
-            <input type="number" step="1" class="form-control" id="duration" name="duration"/>
-            <small class="text-danger" th:if="${#fields.hasErrors('duration')}"
-                   th:errors="*{duration}">Duration error message</small>
-        </div>
-
-        <div class="form-group">
-            <div class="label-holder text-white textCol d-flex justify-content-center">
-                <label for="association" class="h4 mb-2">Organized by (Association)</label>
-            </div>
-            <input type="text" class="form-control" id="association" name="association"/>
-            <small class="text-danger" th:if="${#fields.hasErrors('association')}"
-                   th:errors="*{association}">Association error message</small>
-        </div>
-
-        <div class="form-group">
-            <div class="label-holder text-white textCol d-flex justify-content-center">
-                <label for="createdBy" class="h4 mb-2">Created by</label>
-            </div>
-            <input type="text" class="form-control" id="createdBy" name="createdBy"/>
-            <small class="text-danger" th:if="${#fields.hasErrors('createdBy')}"
-                   th:errors="*{createdBy}">Created by error message</small>
-        </div>
-
-        <div class="form-group">
-            <div class="text-white label-holder d-flex justify-content-center">
-                <label for="condition" class="h4 mb-2">Game Result (Condition)</label>
-            </div>
-            <select class="browser-default custom-select" id="condition" name="condition">
-                <option value="">Select result</option>
-                <option value="WIN">Win</option>
-                <option value="DRAW">Draw</option>
-                <option value="LOSE">Lose</option>
+            <select class="form-control" id="team1" name="team1" required>
+                <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}"></option>
             </select>
-            <small class="text-danger" th:if="${#fields.hasErrors('condition')}"
-                   th:errors="*{condition}">Condition error message</small>
+            <small class="text-danger" th:if="${#fields.hasErrors('team1')}" th:errors="*{team1}">Team 1 error message</small>
+        </div>
+
+        <!-- Team 2 -->
+        <div class="form-group">
+            <div class="label-holder d-flex justify-content-center">
+                <label for="team2" class="h4 mb-2">Team 2</label>
+            </div>
+            <select class="form-control" id="team2" name="team2" required>
+                <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}"></option>
+            </select>
+            <small class="text-danger" th:if="${#fields.hasErrors('team2')}" th:errors="*{team2}">Team 2 error message</small>
+        </div>
+
+        <!-- Home Score -->
+        <div class="form-group">
+            <div class="label-holder d-flex justify-content-center">
+                <label for="homeScore" class="h4 mb-2">Home Team Score</label>
+            </div>
+            <input type="number" class="form-control" id="homeScore" name="homeScore" min="0" required/>
+            <small class="text-danger" th:if="${#fields.hasErrors('homeScore')}" th:errors="*{homeScore}">Home score error message</small>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder d-flex justify-content-center">
+                <label for="awayScore" class="h4 mb-2">Away Team Score</label>
+            </div>
+            <input type="number" class="form-control" id="awayScore" name="awayScore" min="0" required/>
+            <small class="text-danger" th:if="${#fields.hasErrors('awayScore')}" th:errors="*{awayScore}">Away score error message</small>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder d-flex justify-content-center">
+                <label for="scoringPlayers" class="h4 mb-2">Players who Scored</label>
+            </div>
+            <select multiple class="form-control" id="scoringPlayers" name="scoringPlayers" required>
+                <option th:each="player : ${players}" th:value="${player.id}" th:text="${player.name}"></option>
+            </select>
+            <small class="text-danger" th:if="${#fields.hasErrors('scoringPlayers')}" th:errors="*{scoringPlayers}">Players error message</small>
         </div>
 
         <div class="button-holder d-flex justify-content-center">
-            <button type="submit" class="btn btn-warning  mb-3">Add Game</button>
+            <button type="submit" class="btn btn-primary mb-3">Add Game</button>
         </div>
 
     </form>
-
-<form action="/games/record/{{game.id}}" method="post">
-
-    <div>
-        <label for="scoringPlayer">Player who scored:</label>
-        <select id="scoringPlayer" name="scoringPlayerId">
-            <!-- Populate with players from the selected team -->
-            <option th:each="player : ${players}" th:value="${player.id}" th:text="${player.name}"></option>
-        </select>
-    </div>
-
-    <button type="submit">Record Goal</button>
-</form>
-      
-
-      
 </main>
 <footer th:replace="fragments/commons::footer"></footer>
 </body>
