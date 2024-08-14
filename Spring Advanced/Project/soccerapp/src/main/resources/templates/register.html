@@ -1,59 +1,112 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/commons::head"></head>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons::head">
+    <style>
+        body {
+            background-color: #203fcf;
+            color: white;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        h1 {
+            color: black;
+            font-size: 18pt;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        input.form-control {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 12pt;
+            color: black;
+        }
+        button.btn {
+            background-color: #4ba3e5;
+            color: white;
+            border: 1px solid white;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            font-size: 12pt;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        button.btn:hover {
+            background-color: #3498db;
+        }
+        .hr-3 {
+            height: 3px;
+            border: none;
+            background-color: white;
+        }
+        .bg-blur {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .label-holder p {
+            margin-bottom: 0;
+        }
+        .form-group label {
+            color: white;
+        }
+        .text-danger {
+            color: red;
+        }
+    </style>
+</head>
 <body>
 <header th:replace="fragments/commons::nav"></header>
 <main>
     <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Register</span></h1>
-    <hr class="hr-3 w-25 bg-white"/>
+    <hr class="hr-3 w-25 mx-auto"/>
 
     <form class="mx-auto w-25 bg-blur rounded" th:method="POST" th:action="@{/register}">
-
+        
         <div class="form-group">
-            <div class="label-holder textCol d-flex justify-content-center">
-                <label for="username" class="h4 mb-2 text-white">Username</label>
+            <div class="label-holder d-flex justify-content-center">
+                <label for="username" class="h4 mb-2">Username</label>
             </div>
-
-            <input type="text" class="form-control" id="username" name="username"/>
-            <small class="text-danger">Username error message</small>
+            <input type="text" class="form-control" id="username" name="username" required/>
+            <small class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error message</small>
         </div>
 
         <div class="form-group">
-            <div class="label-holder text-green textCol d-flex justify-content-center">
+            <div class="label-holder d-flex justify-content-center">
                 <label for="email" class="h4 mb-2">Email</label>
             </div>
-            <input type="email" class="form-control" id="email" name="email"/>
-            <small class="text-danger">Email error message</small>
+            <input type="email" class="form-control" id="email" name="email" required/>
+            <small class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error message</small>
         </div>
 
         <div class="form-group">
-            <div class="label-holder text-red textCol d-flex justify-content-center">
-                <label for="email" class="h4 mb-2">Adress</label>
+            <div class="label-holder d-flex justify-content-center">
+                <label for="telephone" class="h4 mb-2">Telephone</label>
             </div>
-            <input type="adress" class="form-control" id="adress" name="adress"/>
-            <small class="text-danger">Adress error message</small>
+            <input type="tel" class="form-control" id="telephone" name="telephone" required/>
+            <small class="text-danger" th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}">Telephone error message</small>
         </div>
-      
 
         <div class="form-group">
-            <div class="label-holder text-black textCol d-flex justify-content-center">
+            <div class="label-holder d-flex justify-content-center">
+                <label for="address" class="h4 mb-2">Address</label>
+            </div>
+            <input type="text" class="form-control" id="address" name="address" required/>
+            <small class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Address error message</small>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder d-flex justify-content-center">
                 <label for="password" class="h4 mb-2">Password</label>
             </div>
-            <input type="password" class="form-control" id="password" name="password"/>
-            <small class="text-danger">Password error message</small>
+            <input type="password" class="form-control" id="password" name="password" required/>
+            <small class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error message</small>
         </div>
 
         <div class="form-group">
-            <div class="label-holder text-white textCol d-flex justify-content-center">
+            <div class="label-holder d-flex justify-content-center">
                 <label for="confirmPassword" class="h4 mb-2">Confirm Password</label>
             </div>
-            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"/>
-            <small class="text-danger">Password error message</small>
+            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required/>
+            <small class="text-danger" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">Confirm Password error message</small>
         </div>
 
         <div class="button-holder d-flex justify-content-center">
-            <button type="submit" class="btn btn-warning  mb-3" value="Register">Register</button>
+            <button type="submit" class="btn btn-primary mb-3">Register</button>
         </div>
 
     </form>
