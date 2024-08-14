@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons::head">
+    <style>
+        body {
+            background-color: #203fcf;
+            color: white;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        h1 {
+            color: black;
+            font-size: 18pt;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        p, h2, h3 {
+            font-family: 'Times New Roman', Times, serif;
+            color: white;
+        }
+        .hr-3 {
+            height: 3px;
+            border: none;
+            background-color: white;
+        }
+        .bg-blur {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+<header th:replace="fragments/commons::nav"></header>
+<main>
+    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Football Association Information</span></h1>
+    <hr class="hr-3 w-50 mx-auto"/>
+
+    <div class="mx-auto w-75 bg-blur rounded p-4">
+        <h2 class="mb-3">About the Football Association</h2>
+        <p>The Football Association (FA) is the governing body of football in our country. Established in [Year], the FA is responsible for overseeing all aspects of the game at both amateur and professional levels. The Association's mission is to promote the sport, ensuring it is accessible, fair, and enjoyable for everyone.</p>
+
+        <h3 class="mt-4">Our History</h3>
+        <p>The Football Association was founded in [Year] by a group of enthusiasts who saw the need for a unified set of rules and regulations for the sport. Over the years, the FA has grown in scope and influence, playing a key role in the development of football worldwide.</p>
+
+        <h3 class="mt-4">Our Mission</h3>
+        <p>We aim to develop and govern the sport of football by setting standards and guidelines, organizing competitions, and supporting the grassroots game. Our focus is on fostering a culture of respect, inclusivity, and passion for the game.</p>
+
+        <h3 class="mt-4">Key Activities</h3>
+        <p>The FA organizes national competitions, manages the national teams, and provides education and training for coaches, referees, and players. We are committed to ensuring the integrity of the sport and providing opportunities for people of all ages and abilities to participate in football.</p>
+
+        <h3 class="mt-4">Join Us</h3>
+        <p>Whether you are a player, coach, referee, or simply a fan, the Football Association offers a wide range of programs and resources to help you get involved in the game. Join us in our mission to support and grow football at every level.</p>
+
+        <h3 class="mt-4">Contact Information</h3>
+        <p>For more information about the Football Association and how you can get involved, please contact us at:</p>
+        <p>Email: info@fsn.bg</p>
+        <p>Phone: (534534) 343-343-432</p>
+        <p>Address: 9000 Varna, Bulgaria</p>
+    </div>
+</main>
+<footer th:replace="fragments/commons::footer"></footer>
+</body>
+</html>
