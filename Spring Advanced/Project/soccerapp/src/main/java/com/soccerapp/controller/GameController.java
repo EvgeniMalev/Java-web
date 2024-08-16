@@ -84,14 +84,18 @@ public ModelAndView recordGoal(@PathVariable("id") UUID id, @RequestParam("scori
         return new ModelAndView(view);
     }
 
-
-    @PostMapping("/record/{id}")
-    public ModelAndView buyOffer(@PathVariable("id") UUID id) {
-        if (!loggedUser.isLogged()) {
-            return new ModelAndView("redirect:/login");
-        }
-        
-        gameService.record(id);
-        return new ModelAndView("redirect:/home");
+@PostMapping("/record/{id}")
+public ModelAndView recordGoal(@PathVariable("id") UUID id, @RequestParam("scoringPlayerId") UUID playerId) {
+    if (!loggedUser.isLogged()) {
+        return new ModelAndView("redirect:/login");
     }
+
+    boolean isRecorded = gameService.record(id);
+    if (isRecorded) {
+        playerService.incrementGoals(playerId);
+    }
+
+    return new ModelAndView("redirect:/home");
+}
+
 }
