@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referee Information</title>
+    <style>
+        body {
+            background-color: #4CAF50;
+            color: #FFFFFF;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333333;
+            color: #FFFFFF;
+            padding: 10px 0;
+            text-align: center;
+        }
+        header h1 {
+            color: #FFA500;
+            margin: 0;
+        }
+        nav a {
+            color: #FFFFFF;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        main {
+            padding: 20px;
+        }
+        section h2 {
+            color: #FFA500;
+        }
+        .referee-info {
+            background-color: #FFFFFF;
+            border: 1px solid #FFFFFF;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .referee-info p {
+            line-height: 1.6;
+        }
+        .highlight {
+            background-color: #FFA500;
+            color: #FFFFFF;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        footer {
+            background-color: #333333;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Referee Information</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/add-game">Add Game</a>
+            <a href="/referee-information">Referee Information</a>
+            <a href="/football-fields">Football Fields</a>
+            <a href="/login">Login</a>
+        </nav>
+    </header>
+    <main>
+        <section class="referee-info">
+            <h2>Referee Analysis</h2>
+            <p>Below is an analysis of referees added by the "Add Game" page:</p>
+            <ul>
+                <li><strong>Referee 1</strong><br>
+                    <span class="highlight">Performance:</span> Consistent, with high accuracy in decision-making. Known for fair play and clear communication.</li>
+                <li><strong>Referee 2</strong><br>
+                    <span class="highlight">Performance:</span> Experienced, with a strong understanding of game rules. Occasionally needs improvement in managing high-pressure situations.</li>
+                <li><strong>Referee 3</strong><br>
+                    <span class="highlight">Performance:</span> New to the league but shows great potential. Needs to gain more experience in handling complex scenarios.</li>
+            </ul>
+            <p>The analysis is based on the feedback and data collected from recent matches. For more detailed reports, please refer to the specific game analysis on the "Add Game" page.</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Soccer App</p>
+    </footer>
+</body>
+</html>
