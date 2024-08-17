@@ -63,20 +63,24 @@
     <h1>Add New Player</h1>
     <form th:action="@{/add-player}" th:method="POST">
         <div class="form-group">
-            <label for="playerNumber">Player Number</label>
-            <input type="text" id="playerNumber" name="playerNumber" class="form-control" required>
-        </div>
-        <div class="form-group">
             <label for="playerName">Player Name</label>
             <input type="text" id="playerName" name="playerName" class="form-control" required>
         </div>
         <div class="form-group">
-            <label for="playerHeight">Player Height (cm)</label>
-            <input type="text" id="playerHeight" name="playerHeight" class="form-control" required>
+            <label for="playerTeam">Team</label>
+            <input type="text" id="playerTeam" name="playerTeam" class="form-control" required>
         </div>
         <div class="form-group">
-            <label for="playerWeight">Player Weight (kg)</label>
-            <input type="text" id="playerWeight" name="playerWeight" class="form-control" required>
+            <label for="playerNumber">Player Number</label>
+            <input type="text" id="playerNumber" name="playerNumber" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="playerPosition">Position</label>
+            <input type="text" id="playerPosition" name="playerPosition" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="playerAge">Age</label>
+            <input type="text" id="playerAge" name="playerAge" class="form-control" required>
         </div>
         <button type="submit" class="btn">Add Player</button>
     </form>
