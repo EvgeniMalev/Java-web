@@ -1,9 +1,7 @@
-// app/src/main/java/com/soccerapp/service/impl/TeamServiceImpl.java
-package com.soccerapp.service.impl;
+package com.soccerapp.service;
 
 import com.soccerapp.model.entity.Team;
 import com.soccerapp.repository.TeamRepository;
-import com.soccerapp.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +11,8 @@ import java.util.UUID;
 @Service
 public class TeamServiceImpl implements TeamService {
 
-    private final TeamRepository teamRepository;
-
     @Autowired
-    public TeamServiceImpl(TeamRepository teamRepository) {
-        this.teamRepository = teamRepository;
-    }
+    private TeamRepository teamRepository;
 
     @Override
     public Team createTeam(Team team) {
@@ -27,7 +21,7 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public Team getTeamById(UUID id) {
-        return teamRepository.findById(id).orElse(null);
+        return teamRepository.findById(id).orElseThrow();
     }
 
     @Override
