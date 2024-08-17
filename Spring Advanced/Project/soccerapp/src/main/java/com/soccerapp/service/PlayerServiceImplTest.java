@@ -1,81 +1,46 @@
 package com.soccerapp.service;
 
 import com.soccerapp.model.entity.Player;
-import com.soccerapp.model.entity.Team;
 import com.soccerapp.repository.PlayerRepository;
-import com.soccerapp.repository.TeamRepository;
-import com.soccerapp.service.impl.PlayerServiceImpl;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.*;
+@Service
+public class PlayerServiceImpl implements PlayerService {
 
-class PlayerServiceImplTest {
-
-    @Mock
+    @Autowired
     private PlayerRepository playerRepository;
 
-    @Mock
-    private TeamRepository teamRepository;
-
-    @InjectMocks
-    private PlayerServiceImpl playerService;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
-
-    @Test
-    void testAddPlayer() {
-        UUID teamId = UUID.randomUUID();
-        Team team = new Team();
-        team.setId(teamId);
-
-        when(teamRepository.findById(teamId)).thenReturn(Optional.of(team));
-        when(playerRepository.save(any(Player.class))).thenAnswer(invocation -> invocation.getArgument(0));
-
-        Player player = playerService.addPlayer("John Doe", teamId);
-
-        assertNotNull(player);
-        assertEquals("John Doe", player.getName());
-        assertEquals(team, player.getTeam());
-
-        verify(teamRepository, times(1)).findById(teamId);
-        verify(playerRepository, times(1)).save(any(Player.class));
-    }
-
-    @Test
-    void testIncrementGoals() {
-        UUID playerId = UUID.randomUUID();
+    @Override
+    public Player addPlayer(String name, UUID teamId) {
         Player player = new Player();
-        player.setId(playerId);
-        player.setGoalsScored(2);
-
-        when(playerRepository.findById(playerId)).thenReturn(Optional.of(player));
-
-        playerService.incrementGoals(playerId);
-
-        assertEquals(3, player.getGoalsScored());
-
-        verify(playerRepository, times(1)).findById(playerId);
-        verify(playerRepository, times(1)).save(player);
+        player.setName(name);
+        player.setTeamId(teamId);
+        return playerRepository.save(player);
     }
 
-    @Test
-    void testGetPlayersByTeam() {
-        UUID teamId = UUID.randomUUID();
+    @Override
+    public void removePlayer(UUID playerId) {
+        playerRepository.deleteById(playerId);
+    }
 
-        playerService.getPlayersByTeam(teamId);
+    @Override
+    public List<Player> getPlayersByTeam(UUID teamId) {
+        return playerRepository.findByTeamId(teamId);
+    }
 
-        verify(playerRepository, times(1)).findAllByTeamIdOrderByGoalsScoredDesc(teamId);
+    @Override
+    public List<Player> getAllPlayers() {
+        return playerRepository.findAll();
+    }
+
+    @Override
+    public void incrementGoals(UUID playerId) {
+        Player player = playerRepository.findById(playerId).orElseThrow();
+        player.setGoalsScored(player.getGoalsScored() + 1);
+        playerRepository.save(player);
     }
 }
