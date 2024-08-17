@@ -78,6 +78,12 @@
     <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Manage Game</span></h1>
     <hr class="hr-3 w-25 mx-auto"/>
 
+    <h1>Start Game</h1>
+    <form action="/games/start" method="post">
+        <input type="hidden" name="id" value="ID_OF_THE_GAME"> <!-- Add the game ID dynamically -->
+        <button type="submit">Start Game</button>
+    </form>
+    
     <form class="mx-auto w-50 bg-blur rounded" th:method="POST" th:action="@{/games/start}">
         <div class="form-group">
             <div class="label-holder d-flex justify-content-center">
