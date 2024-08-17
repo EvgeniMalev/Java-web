@@ -9,5 +9,6 @@ public interface PlayerService {
     Player addPlayer(String name, UUID teamId);
     void removePlayer(UUID playerId);
     List<Player> getPlayersByTeam(UUID teamId);
+    List<Player> getAllPlayers();
     void incrementGoals(UUID playerId);
 }
