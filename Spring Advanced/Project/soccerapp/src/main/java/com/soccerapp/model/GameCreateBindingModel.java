@@ -1,58 +1,64 @@
 package com.soccerapp.model;
 
-import com.soccerapp.model.enums.ResultName;
-
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.UUID;
+import java.time.Duration;
 
 public class GameCreateBindingModel {
 
-    @NotNull(message = "Home team is required")
-    private UUID homeTeamId;
-
-    @NotNull(message = "Away team is required")
-    private UUID awayTeamId;
-
-    @NotNull(message = "Home score is required")
-    @Positive(message = "Home score must be a positive number")
-    private Integer homeScore;
-
-    @NotNull(message = "Away score is required")
-    @Positive(message = "Away score must be a positive number")
-    private Integer awayScore;
-
+    @NotEmpty
     private String matchComment;
 
-    @NotNull(message = "Duration is required")
-    private BigDecimal duration;
+    @NotNull
+    private Duration duration;
 
-    @NotNull(message = "Result is required")
-    private ResultName result;
+    @NotEmpty
+    private String homeTeamName;
 
-    @NotNull(message = "Home team players are required")
-    private List<UUID> homeTeamPlayers;
+    @NotEmpty
+    private String awayTeamName;
 
-    @NotNull(message = "Away team players are required")
-    private List<UUID> awayTeamPlayers;
+    @NotNull
+    private Integer homeScore;
 
+    @NotNull
+    private Integer awayScore;
 
-    public UUID getHomeTeamId() {
-        return homeTeamId;
+    private Float fieldTemperature;
+
+    @NotNull
+    private Integer fansWatched;
+
+    public String getMatchComment() {
+        return matchComment;
     }
 
-    public void setHomeTeamId(UUID homeTeamId) {
-        this.homeTeamId = homeTeamId;
+    public void setMatchComment(String matchComment) {
+        this.matchComment = matchComment;
     }
 
-    public UUID getAwayTeamId() {
-        return awayTeamId;
+    public Duration getDuration() {
+        return duration;
     }
 
-    public void setAwayTeamId(UUID awayTeamId) {
-        this.awayTeamId = awayTeamId;
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
+    public String getHomeTeamName() {
+        return homeTeamName;
+    }
+
+    public void setHomeTeamName(String homeTeamName) {
+        this.homeTeamName = homeTeamName;
+    }
+
+    public String getAwayTeamName() {
+        return awayTeamName;
+    }
+
+    public void setAwayTeamName(String awayTeamName) {
+        this.awayTeamName = awayTeamName;
     }
 
     public Integer getHomeScore() {
@@ -71,43 +77,19 @@ public class GameCreateBindingModel {
         this.awayScore = awayScore;
     }
 
-    public String getMatchComment() {
-        return matchComment;
+    public Float getFieldTemperature() {
+        return fieldTemperature;
     }
 
-    public void setMatchComment(String matchComment) {
-        this.matchComment = matchComment;
+    public void setFieldTemperature(Float fieldTemperature) {
+        this.fieldTemperature = fieldTemperature;
     }
 
-    public BigDecimal getDuration() {
-        return duration;
+    public Integer getFansWatched() {
+        return fansWatched;
     }
 
-    public void setDuration(BigDecimal duration) {
-        this.duration = duration;
-    }
-
-    public ResultName getResult() {
-        return result;
-    }
-
-    public void setResult(ResultName result) {
-        this.result = result;
-    }
-
-    public List<UUID> getHomeTeamPlayers() {
-        return homeTeamPlayers;
-    }
-
-    public void setHomeTeamPlayers(List<UUID> homeTeamPlayers) {
-        this.homeTeamPlayers = homeTeamPlayers;
-    }
-
-    public List<UUID> getAwayTeamPlayers() {
-        return awayTeamPlayers;
-    }
-
-    public void setAwayTeamPlayers(List<UUID> awayTeamPlayers) {
-        this.awayTeamPlayers = awayTeamPlayers;
+    public void setFansWatched(Integer fansWatched) {
+        this.fansWatched = fansWatched;
     }
 }
