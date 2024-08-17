@@ -1,29 +1,112 @@
+
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/commons::head"></head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Balkan Cup Information</title>
+    <style>
+        body {
+            background-color: #203fcf;
+            color: white;
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: black;
+            font-size: 22pt;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #333;
+        }
+        table, th, td {
+            border: 1px solid white;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #444;
+        }
+        tr:nth-child(even) {
+            background-color: #555;
+        }
+        tr:nth-child(odd) {
+            background-color: #666;
+        }
+        caption {
+            font-size: 18pt;
+            margin: 10px 0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14pt;
+        }
+    </style>
+</head>
 <body>
-<header th:replace="fragments/commons::nav"></header>
-<main>
-    <div class="container bg-blur rounded mt-5 ">
-        <h1>This is App for soccer results</h1>
-       <p>Results from all regional football leagues</p>
-        <hr class="my-3 bg-white w-50"/>
-
-        <p class="h4">
-             More information at the following links:
-             www.moresports.com
-             www.livesports.org
-        </p>
-        <hr class="my-3 bg-white w-75"/>
-
-        <h3>
-            <a class="text-primary" th:href="@{/login}">Login</a>
-            to Your account
-            <a class="text-primary" th:href="@{/register}">Register</a>
-        </h3>
+    <h1>Balkan Cup Information</h1>
+    <div class="container">
+        <table>
+            <caption>Balkan Cup Tournament Stages</caption>
+            <thead>
+                <tr>
+                    <th>Stage</th>
+                    <th>Description</th>
+                    <th>Teams</th>
+                    <th>Matches</th>
+                    <th>Coefficient for Winning</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Group Stages</td>
+                    <td>Initial round where teams are divided into groups.</td>
+                    <td>16</td>
+                    <td>48</td>
+                    <td>0.5</td>
+                </tr>
+                <tr>
+                    <td>Quarter-Finals</td>
+                    <td>Top 8 teams compete in knockout matches.</td>
+                    <td>8</td>
+                    <td>4</td>
+                    <td>1.0</td>
+                </tr>
+                <tr>
+                    <td>Semi-Finals</td>
+                    <td>Top 4 teams compete to reach the final.</td>
+                    <td>4</td>
+                    <td>2</td>
+                    <td>1.5</td>
+                </tr>
+                <tr>
+                    <td>Finals</td>
+                    <td>Last 2 teams compete for the championship.</td>
+                    <td>2</td>
+                    <td>1</td>
+                    <td>2.0</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-</main>
-<footer th:replace="fragments/commons::footer"></footer>
+    <div class="footer">
+        <p>For more information, visit our <a href="/index" style="color: #4ba3e5;">Home Page</a>.</p>
+    </div>
 </body>
 </html>
+
