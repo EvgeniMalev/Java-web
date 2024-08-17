@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+  <title th:text="#{home.title}">Welcome to Soccer App</title>
     <style>
         body {
             background-color: #203fcf;
@@ -69,7 +69,8 @@
     </style>
 </head>
 <body>
-    <h1>Welcome to the Soccer App</h1>
+    
+    <h1 th:text="#{home.message}">Football analysis and statistics</h1>
     <div class="container">
         <a href="/add-game" class="nav-button button-add-game">Add Game</a>
         <a href="/add-player" class="nav-button button-add-player">Add Player</a>
