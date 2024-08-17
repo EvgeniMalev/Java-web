@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.Locale;
 
 @Controller
 public class UserController {
@@ -29,86 +29,48 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public ModelAndView login(
-            @ModelAttribute("userLoginBindingModel") UserLoginBindingModel userLoginBindingModel) {
-        if (loggedUser.isLogged()) {
-            return new ModelAndView("redirect:/home");
-        }
-
-        return new ModelAndView("login");
+    public String showLoginForm(Model model) {
+        model.addAttribute("userLogin", new UserLoginBindingModel());
+        return "login";
     }
 
     @PostMapping("/login")
-    public ModelAndView login(
-            @ModelAttribute("userLoginBindingModel") @Valid UserLoginBindingModel userLoginBindingModel,
-            BindingResult bindingResult,
-            @RequestParam(name = "lang", required = false) String lang,
-            HttpServletRequest request) {
-
-        if (loggedUser.isLogged()) {
-            return new ModelAndView("redirect:/home");
+    public String login(@Valid @ModelAttribute("userLogin") UserLoginBindingModel userLogin, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "login";
         }
-
-        if (bindingResult.hasErrors()) {
-            return new ModelAndView("login");
+        boolean loginSuccessful = userService.authenticate(userLogin.getUsername(), userLogin.getPassword());
+        if (loginSuccessful) {
+            return "redirect:/home";
         }
-
-        boolean hasSuccessfulLogin = userService.login(userLoginBindingModel);
-
-        if (!hasSuccessfulLogin) {
-            ModelAndView modelAndView = new ModelAndView("login");
-            modelAndView.addObject("hasLoginError", true);
-            return modelAndView;
-        }
-
-        if (lang != null && !lang.isEmpty()) {
-            Locale locale = new Locale(lang);
-            request.getSession().setAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME, locale);
-        }
-
-        return new ModelAndView("redirect:/home");
+        model.addAttribute("hasLoginError", true);
+        return "login";
     }
 
     @GetMapping("/register")
-    public ModelAndView register(
-            @ModelAttribute("userRegisterBindingModel") UserRegisterBindingModel userRegisterBindingModel) {
-        if (loggedUser.isLogged()) {
-            return new ModelAndView("redirect:/home");
-        }
-
-        return new ModelAndView("register");
+    public String showRegistrationForm(Model model) {
+        model.addAttribute("userRegister", new UserRegisterBindingModel());
+        return "register";
     }
 
     @PostMapping("/register")
-    public ModelAndView register(
-            @ModelAttribute("userRegisterBindingModel") @Valid UserRegisterBindingModel userRegisterBindingModel,
-            BindingResult bindingResult) {
-        if (loggedUser.isLogged()) {
-            return new ModelAndView("redirect:/home");
+    public String register(@Valid @ModelAttribute("userRegister") UserRegisterBindingModel userRegister, BindingResult result) {
+        if (result.hasErrors()) {
+            return "register";
         }
+        userService.register(userRegister);
+        return "redirect:/login";
+    }
 
-        if (bindingResult.hasErrors()) {
-            return new ModelAndView("register");
-        }
-
-        boolean hasSuccessfulRegistration = userService.register(userRegisterBindingModel);
-
-        if (!hasSuccessfulRegistration) {
-            ModelAndView modelAndView = new ModelAndView("register");
-            modelAndView.addObject("hasRegistrationError", true);
-            return modelAndView;
-        }
-
-        return new ModelAndView("redirect:/login");
+    @GetMapping("/home")
+    public String showHomePage() {
+        return "home";
     }
 
     @PostMapping("/logout")
-    public ModelAndView logout() {
-        if (!loggedUser.isLogged()) {
-            return new ModelAndView("redirect:/home");
-        }
-
-        this.userService.logout();
-        return new ModelAndView("redirect:/");
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        // Invalidate the session
+        request.getSession().invalidate();
+        return "redirect:/login"; // Redirect to login page
     }
 }
