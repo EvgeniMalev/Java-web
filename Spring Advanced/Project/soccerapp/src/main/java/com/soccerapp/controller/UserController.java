@@ -69,8 +69,8 @@ public class UserController {
 
     @PostMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
-        // Invalidate the session
+
         request.getSession().invalidate();
-        return "redirect:/login"; // Redirect to login page
+        return "redirect:/login"; 
     }
 }
