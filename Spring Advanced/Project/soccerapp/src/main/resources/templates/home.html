@@ -1,74 +1,88 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/commons::head">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
     <style>
         body {
             background-color: #203fcf;
             color: white;
             font-family: 'Times New Roman', Times, serif;
         }
-
-        h1, h2, h3, h4, h5, h6 {
+        h1 {
             color: black;
+            font-size: 22pt;
             font-family: 'Times New Roman', Times, serif;
-            font-size: 18pt;
+            text-align: center;
+            margin-top: 20px;
         }
-
-        button {
-            background-color: #4ba3e5;
+        .container {
+            width: 60%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+        }
+        .nav-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            font-size: 16pt;
+            text-align: center;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
             color: white;
-            border: 1px solid white;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-            font-size: 12pt;
-            font-family: 'Times New Roman', Times, serif;
-        }
-
-        button:hover {
-            background-color: #3498db;
-        }
-
-        input, textarea {
-            font-family: 'Times New Roman', Times, serif;
-            font-size: 12pt;
-            color: black;
-        }
-        a {
-            color: white;
+            cursor: pointer;
             text-decoration: none;
         }
-
-        a:hover {
-            text-decoration: underline;
+        .nav-button:hover {
+            background-color: #3498db;
+        }
+        .button-add-game {
+            background-color: #4ba3e5;
+        }
+        .button-add-player {
+            background-color: #5cb85c;
+        }
+        .button-association {
+            background-color: #f0ad4e;
+        }
+        .button-change-password {
+            background-color: #d9534f;
+        }
+        .button-football-fields {
+            background-color: #5bc0de;
+        }
+        .button-game-ranklist {
+            background-color: #428bca;
+        }
+        .button-index {
+            background-color: #777;
+        }
+        .button-player-ranklist {
+            background-color: #8c8c8c;
+        }
+        .button-referee-information {
+            background-color: #5bc0de;
         }
     </style>
 </head>
 <body>
-<header th:replace="fragments/commons::nav"></header>
-<main>
-    <div class="container-fluid bg-blur rounded mt-1 mb-4 d-flex justify-content-center" id="big-div">
-
-        <div class="col-10 text-center">
-            <h1 th:text="${#authentication.principal != null ? 'Soccer App' : 'Welcome to Soccer App'}">Welcome to Soccer App</h1>
-        </div>
-
-        <div class="col-10 text-center mb-4" th:if="${#authentication.principal == null}">
-            <button class="btn btn-primary mx-2" onclick="window.location.href='/login'">Login</button>
-            <button class="btn btn-primary mx-2" onclick="window.location.href='/register'">Register</button>
-        </div>
-
-        <div class="col-10 text-center" th:if="${#authentication.principal != null}">
-            <button class="btn btn-primary mx-2" onclick="window.location.href='/add-game'">Add Game</button>
-            <button class="btn btn-primary mx-2" onclick="window.location.href='/add-player'">Add Player</button>
-            <div class="mt-4">
-                <a href="/association-info.html" class="text-white">Association Info</a><br/>
-                <a href="/game-details.html" class="text-white">Game Details</a><br/>
-                <a href="/player-details.html" class="text-white">Player Details</a><br/>
-                <a href="/players-statistics.html" class="text-white">Players Statistics</a><br/>
-                <a href="/teams-statistics.html" class="text-white">Teams Statistics</a>
-            </div>
-        </div>
+    <h1>Welcome to the Soccer App</h1>
+    <div class="container">
+        <a href="/add-game" class="nav-button button-add-game">Add Game</a>
+        <a href="/add-player" class="nav-button button-add-player">Add Player</a>
+        <a href="/association" class="nav-button button-association">Association</a>
+        <a href="/change-password" class="nav-button button-change-password">Change Password</a>
+        <a href="/football-fields" class="nav-button button-football-fields">Football Fields</a>
+        <a href="/game-ranklist" class="nav-button button-game-ranklist">Game Ranklist</a>
+        <a href="/index" class="nav-button button-index">Home</a>
+        <a href="/player-ranklist" class="nav-button button-player-ranklist">Player Ranklist</a>
+        <a href="/referee-information" class="nav-button button-referee-information">Referee Information</a>
     </div>
-</main>
+</body>
+
 <footer th:replace="fragments/commons::footer"></footer>
 </body>
 </html>
