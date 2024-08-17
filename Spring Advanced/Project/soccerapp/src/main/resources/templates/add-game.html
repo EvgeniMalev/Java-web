@@ -63,12 +63,11 @@
             if (scorerName) {
                 const list = document.getElementById(`${team}ScorersList`);
                 list.innerHTML += `<li>${scorerName}</li>`;
-                scorerInput.value = ''; // Clear input field
+                scorerInput.value = '';
             }
         }
 
         function submitScorers() {
-
             alert("Scorers submitted.");
         }
     </script>
@@ -80,12 +79,25 @@
     <hr class="hr-3 w-25 mx-auto"/>
 
     <form class="mx-auto w-50 bg-blur rounded" th:method="POST" th:action="@{/games/start}">
+        <div class="form-group">
+            <div class="label-holder d-flex justify-content-center">
+                <label for="homeTeamName" class="h4 mb-2">Home Team Name</label>
+            </div>
+            <input type="text" class="form-control" id="homeTeamName" name="homeTeamName" required/>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder d-flex justify-content-center">
+                <label for="awayTeamName" class="h4 mb-2">Away Team Name</label>
+            </div>
+            <input type="text" class="form-control" id="awayTeamName" name="awayTeamName" required/>
+        </div>
+
         <div class="button-holder d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary mb-3">Start Recording</button>
+            <button type="submit" class="btn btn-primary mb-3">Submit Teams</button>
         </div>
     </form>
 
-    <!-- Goal Input Form -->
     <form class="mx-auto w-50 bg-blur rounded" th:method="POST" th:action="@{/games/submit-goals}">
         <div class="form-group">
             <div class="label-holder d-flex justify-content-center">
@@ -106,7 +118,6 @@
         </div>
     </form>
 
-    <!-- Scorer Input Form -->
     <form class="mx-auto w-50 bg-blur rounded" onsubmit="submitScorers(); return false;">
         <h2 class="text-center">Add Scorers</h2>
 
