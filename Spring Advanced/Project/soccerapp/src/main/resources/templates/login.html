@@ -69,7 +69,7 @@
 <main>
     <div class="language-switcher">
         <form th:action="@{/login}" method="get">
-            <label for="language">Select Language:</label>
+            <label for="language" th:text="#{language.select}">Select Language:</label>
             <select id="language" name="lang" onchange="this.form.submit()">
                 <option value="en" th:selected="${#locale.language.equals('en')}">English</option>
                 <option value="bg" th:selected="${#locale.language.equals('bg')}">Bulgarian</option>
@@ -78,18 +78,18 @@
         </form>
     </div>
 
-    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Login</span></h1>
+    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark" th:text="#{login.title}">Login</span></h1>
     <hr class="hr-3 w-25 mx-auto"/>
 
     <form class="mx-auto w-25 bg-blur" th:action="@{/login}" th:method="POST">
         <div th:if="${hasLoginError}" class="text-danger">
-            Your username or password is incorrect!
+            <span th:text="#{login.failure}">Your username or password is incorrect!</span>
         </div>
 
         <div class="form-group">
             <div class="label-holder text-white d-flex justify-content-center">
-                <p>You can have access to the app after logging in to the page</p>
-                <label for="username" class="h3 mb-2">Username</label>
+                <p th:text="#{login.accessMessage}">You can have access to the app after logging in to the page</p>
+                <label for="username" class="h3 mb-2" th:text="#{login.username}">Username</label>
             </div>
             <input type="text" class="form-control" id="username" name="username" th:field="*{username}" required/>
             <small class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error message</small>
@@ -97,19 +97,19 @@
 
         <div class="form-group">
             <div class="label-holder text-white d-flex justify-content-center">
-                <label for="password" class="h3 mb-2">Your Password</label>
+                <label for="password" class="h3 mb-2" th:text="#{login.password}">Your Password</label>
             </div>
             <input type="password" class="form-control" id="password" name="password" th:field="*{password}" required/>
             <small class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error message</small>
         </div>
 
         <div class="button-holder d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary mb-3">Login</button>
+            <button type="submit" class="btn btn-primary mb-3" th:text="#{login.submitButton}">Login</button>
         </div>
         <div class="text-center mt-3">
-            <a href="/register" class="text-white">Don't have an account? Register here</a>
+            <a href="/register" class="text-white" th:text="#{login.registerLink}">Don't have an account? Register here</a>
             <br>
-            <a href="/forgot-password" class="text-white">Forgot your password?</a>
+            <a href="/forgot-password" class="text-white" th:text="#{login.forgotPassword}">Forgot your password?</a>
         </div>
     </form>
 </main>
