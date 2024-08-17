@@ -47,84 +47,106 @@
         .text-danger {
             color: red;
         }
+        .scorer-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .scorer-list li {
+            margin-bottom: 5px;
+        }
     </style>
+    <script>
+        function addScorer(team) {
+            const scorerInput = document.getElementById(`${team}ScorerInput`);
+            const scorerName = scorerInput.value.trim();
+
+            if (scorerName) {
+                const list = document.getElementById(`${team}ScorersList`);
+                list.innerHTML += `<li>${scorerName}</li>`;
+                scorerInput.value = ''; // Clear input field
+            }
+        }
+
+        function submitScorers() {
+
+            alert("Scorers submitted.");
+        }
+    </script>
 </head>
 <body>
 <header th:replace="fragments/commons::nav"></header>
 <main>
-    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add Game</span></h1>
+    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Manage Game</span></h1>
     <hr class="hr-3 w-25 mx-auto"/>
 
-    <form class="mx-auto w-50 bg-blur rounded" th:method="POST" th:action="@{/games/create}">
-        
-        <div class="form-group">
-            <div class="label-holder d-flex justify-content-center">
-                <label for="team1" class="h4 mb-2">Team 1</label>
-            </div>
-            <select class="form-control" id="team1" name="team1" required>
-                <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}"></option>
-            </select>
-            <small class="text-danger" th:if="${#fields.hasErrors('team1')}" th:errors="*{team1}">Team 1 error message</small>
+    <form class="mx-auto w-50 bg-blur rounded" th:method="POST" th:action="@{/games/start}">
+        <div class="button-holder d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary mb-3">Start Recording</button>
         </div>
+    </form>
 
+    <!-- Goal Input Form -->
+    <form class="mx-auto w-50 bg-blur rounded" th:method="POST" th:action="@{/games/submit-goals}">
         <div class="form-group">
             <div class="label-holder d-flex justify-content-center">
-                <label for="team2" class="h4 mb-2">Team 2</label>
-            </div>
-            <select class="form-control" id="team2" name="team2" required>
-                <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}"></option>
-            </select>
-            <small class="text-danger" th:if="${#fields.hasErrors('team2')}" th:errors="*{team2}">Team 2 error message</small>
-        </div>
-
-        <div class="form-group">
-            <div class="label-holder d-flex justify-content-center">
-                <label for="homeScore" class="h4 mb-2">Home Team Score</label>
+                <label for="homeScore" class="h4 mb-2">Home Team Goals</label>
             </div>
             <input type="number" class="form-control" id="homeScore" name="homeScore" min="0" required/>
-            <small class="text-danger" th:if="${#fields.hasErrors('homeScore')}" th:errors="*{homeScore}">Home score error message</small>
         </div>
 
         <div class="form-group">
             <div class="label-holder d-flex justify-content-center">
-                <label for="awayScore" class="h4 mb-2">Away Team Score</label>
+                <label for="awayScore" class="h4 mb-2">Away Team Goals</label>
             </div>
             <input type="number" class="form-control" id="awayScore" name="awayScore" min="0" required/>
-            <small class="text-danger" th:if="${#fields.hasErrors('awayScore')}" th:errors="*{awayScore}">Away score error message</small>
+        </div>
+
+        <div class="button-holder d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary mb-3">Submit Results</button>
+        </div>
+    </form>
+
+    <!-- Scorer Input Form -->
+    <form class="mx-auto w-50 bg-blur rounded" onsubmit="submitScorers(); return false;">
+        <h2 class="text-center">Add Scorers</h2>
+
+        <div class="form-group">
+            <div class="label-holder d-flex justify-content-center">
+                <label for="homeScorerInput" class="h4 mb-2">Home Team Scorer</label>
+            </div>
+            <input type="text" class="form-control" id="homeScorerInput" placeholder="Enter scorer name"/>
+            <button type="button" class="btn btn-secondary mt-2" onclick="addScorer('home')">Add Home Scorer</button>
         </div>
 
         <div class="form-group">
             <div class="label-holder d-flex justify-content-center">
-                <label for="scoringPlayers" class="h4 mb-2">Players who Scored</label>
+                <label for="awayScorerInput" class="h4 mb-2">Away Team Scorer</label>
             </div>
-            <select multiple class="form-control" id="scoringPlayers" name="scoringPlayers" required>
-                <option th:each="player : ${players}" th:value="${player.id}" th:text="${player.name}"></option>
-            </select>
-            <small class="text-danger" th:if="${#fields.hasErrors('scoringPlayers')}" th:errors="*{scoringPlayers}">Players error message</small>
+            <input type="text" class="form-control" id="awayScorerInput" placeholder="Enter scorer name"/>
+            <button type="button" class="btn btn-secondary mt-2" onclick="addScorer('away')">Add Away Scorer</button>
         </div>
 
         <div class="form-group">
-            <div class="label-holder d-flex justify-content-center">
-                <label for="refereeName" class="h4 mb-2">Referee Name</label>
-            </div>
-            <input type="text" class="form-control" id="refereeName" name="refereeName" required/>
-            <small class="text-danger" th:if="${#fields.hasErrors('refereeName')}" th:errors="*{refereeName}">Referee name error message</small>
+            <h4>Home Team Scorers:</h4>
+            <ul id="homeScorersList" class="scorer-list"></ul>
         </div>
 
         <div class="form-group">
-            <div class="label-holder d-flex justify-content-center">
-                <label for="refereeAge" class="h4 mb-2">Referee Age</label>
-            </div>
-            <input type="number" class="form-control" id="refereeAge" name="refereeAge" min="0" required/>
-            <small class="text-danger" th:if="${#fields.hasErrors('refereeAge')}" th:errors="*{refereeAge}">Referee age error message</small>
+            <h4>Away Team Scorers:</h4>
+            <ul id="awayScorersList" class="scorer-list"></ul>
         </div>
 
+        <div class="button-holder d-flex justify-content-center">
+            <button type="button" class="btn btn-primary mb-3" onclick="submitScorers()">Submit Scorers</button>
+        </div>
+    </form>
+
+    <form class="mx-auto w-50 bg-blur rounded" th:method="POST" th:action="@{/games/finish}">
         <div class="form-group">
             <div class="label-holder d-flex justify-content-center">
-                <label for="refereeAssociation" class="h4 mb-2">Referee Association</label>
+                <label for="fieldTemperature" class="h4 mb-2">Field Temperature (°C)</label>
             </div>
-            <input type="text" class="form-control" id="refereeAssociation" name="refereeAssociation" required/>
-            <small class="text-danger" th:if="${#fields.hasErrors('refereeAssociation')}" th:errors="*{refereeAssociation}">Referee association error message</small>
+            <input type="number" class="form-control" id="fieldTemperature" name="fieldTemperature" step="0.1" required/>
         </div>
 
         <div class="form-group">
@@ -132,21 +154,18 @@
                 <label for="duration" class="h4 mb-2">Duration of Game (minutes)</label>
             </div>
             <input type="number" class="form-control" id="duration" name="duration" min="0" required/>
-            <small class="text-danger" th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}">Duration error message</small>
         </div>
 
         <div class="form-group">
             <div class="label-holder d-flex justify-content-center">
-                <label for="fieldTemperature" class="h4 mb-2">Field Temperature (°C)</label>
+                <label for="fansWatched" class="h4 mb-2">Fans Watched</label>
             </div>
-            <input type="number" class="form-control" id="fieldTemperature" name="fieldTemperature" step="0.1" required/>
-            <small class="text-danger" th:if="${#fields.hasErrors('fieldTemperature')}" th:errors="*{fieldTemperature}">Field temperature error message</small>
+            <input type="number" class="form-control" id="fansWatched" name="fansWatched" min="0" required/>
         </div>
 
         <div class="button-holder d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary mb-3">Add Game</button>
+            <button type="submit" class="btn btn-primary mb-3">Finish</button>
         </div>
-
     </form>
 </main>
 <footer th:replace="fragments/commons::footer"></footer>
