@@ -1,18 +1,21 @@
-
 package com.soccerapp.controller;
 
 import com.soccerapp.model.dto.user.UserLoginBindingModel;
 import com.soccerapp.model.dto.user.UserRegisterBindingModel;
-import com.service.UserService;
+import com.soccerapp.service.UserService;
 import com.soccerapp.service.impl.LoggedUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Locale;
 
 @Controller
 public class UserController {
@@ -38,7 +41,10 @@ public class UserController {
     @PostMapping("/login")
     public ModelAndView login(
             @ModelAttribute("userLoginBindingModel") @Valid UserLoginBindingModel userLoginBindingModel,
-            BindingResult bindingResult) {
+            BindingResult bindingResult,
+            @RequestParam(name = "lang", required = false) String lang,
+            HttpServletRequest request) {
+
         if (loggedUser.isLogged()) {
             return new ModelAndView("redirect:/home");
         }
@@ -53,6 +59,11 @@ public class UserController {
             ModelAndView modelAndView = new ModelAndView("login");
             modelAndView.addObject("hasLoginError", true);
             return modelAndView;
+        }
+
+        if (lang != null && !lang.isEmpty()) {
+            Locale locale = new Locale(lang);
+            request.getSession().setAttribute(SessionLocaleResolver.LOCALE_SESSION_ATTRIBUTE_NAME, locale);
         }
 
         return new ModelAndView("redirect:/home");
