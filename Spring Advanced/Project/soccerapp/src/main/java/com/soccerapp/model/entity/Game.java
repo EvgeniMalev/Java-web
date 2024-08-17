@@ -1,102 +1,138 @@
 package com.soccerapp.model.entity;
 
-import com.soccerapp.model.GameCreateBindingModel;
-import org.hibernate.validator.constraints.Length;
-
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.math.BigDecimal;
+import javax.persistence.*;
+import java.time.Duration;
 
 @Entity
 @Table(name = "games")
-public class Game extends BaseEntity {
+public class Game {
 
-    @NotNull
-    @Length(min = 2, max = 50)
-    @Size
-    private String matchcomment;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    @NotNull
-    @Min(value = 0)
-    private BigDecimal duration;
+    @Column(name = "match_comment")
+    private String matchComment;
 
-    @NotNull
-    @ManyToOne
-    private Result result;
+    @Column(name = "duration")
+    private Duration duration;
 
-    // the match is authorized by a sports association
+    @Column(name = "home_team_name")
+    private String homeTeamName;
 
-    @NotNull
-    @ManyToOne
-    private User createdBy;
+    @Column(name = "away_team_name")
+    private String awayTeamName;
 
-    @NotNull
-    @ManyToOne
-    private User fieldtemperature;
+    @Column(name = "home_score")
+    private Integer homeScore;
 
-    @ManyToOne
-    private User watchedBy;
-  
-    public Game() {
+    @Column(name = "away_score")
+    private Integer awayScore;
+
+    @Column(name = "field_temperature")
+    private Float fieldTemperature;
+
+    @Column(name = "fans_watched")
+    private Integer fansWatched;
+
+
+    public Game() {}
+
+    public Game(String matchComment, Duration duration, String homeTeamName, String awayTeamName, Integer homeScore, Integer awayScore, Float fieldTemperature, Integer fansWatched) {
+        this.matchComment = matchComment;
+        this.duration = duration;
+        this.homeTeamName = homeTeamName;
+        this.awayTeamName = awayTeamName;
+        this.homeScore = homeScore;
+        this.awayScore = awayScore;
+        this.fieldTemperature = fieldTemperature;
+        this.fansWatched = fansWatched;
     }
 
-    public Game(GameCreateBindingModel gameCreateBindingModel, Result result, User createdBy, User fieldtemperature) {
-        matchcomment = matchcommentCreateBindingModel.getMatchComment();
-        duration = gameCreateBindingModel.getDuration();
-        this.result = result;
-        this.fieldtemperature = fieldtemperature;
-        this.createdBy = createdBy;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getMatchComment() {
-        return matchcomment;
+        return matchComment;
     }
 
-    public void setMatchComment(String matchcomment) {
-        this.matchcomment = matchcomment;
+    public void setMatchComment(String matchComment) {
+        this.matchComment = matchComment;
     }
 
-    public BigDecimal getDuration() {
+    public Duration getDuration() {
         return duration;
     }
 
-    public void setDuration(BigDecimal duration) {
+    public void setDuration(Duration duration) {
         this.duration = duration;
     }
 
-    public Condition getResult() {
-        return result;
+    public String getHomeTeamName() {
+        return homeTeamName;
     }
 
-    public void setResult(Result result) {
-        this.result = result;
+    public void setHomeTeamName(String homeTeamName) {
+        this.homeTeamName = homeTeamName;
     }
 
-    public Condition getFieldTemperature() {
-        return fieldtemperature;
+    public String getAwayTeamName() {
+        return awayTeamName;
     }
 
-    public void setFieldTemperature(FieldTemperature fieldtemperature) {
-        this.fieldtemperature = fieldtemperature;
-    }
-  
-    public User getCreatedBy() {
-        return createdBy;
+    public void setAwayTeamName(String awayTeamName) {
+        this.awayTeamName = awayTeamName;
     }
 
-    public void setCreatedBy(User createdBy) {
-        this.createdBy = createdBy;
+    public Integer getHomeScore() {
+        return homeScore;
     }
 
-    public User getBoughtBy() {
-        return boughtBy;
+    public void setHomeScore(Integer homeScore) {
+        this.homeScore = homeScore;
     }
 
-    public void setWatchedBy(User watchedBy) {
-        this.watchedBy = watchedBy;
+    public Integer getAwayScore() {
+        return awayScore;
+    }
+
+    public void setAwayScore(Integer awayScore) {
+        this.awayScore = awayScore;
+    }
+
+    public Float getFieldTemperature() {
+        return fieldTemperature;
+    }
+
+    public void setFieldTemperature(Float fieldTemperature) {
+        this.fieldTemperature = fieldTemperature;
+    }
+
+    public Integer getFansWatched() {
+        return fansWatched;
+    }
+
+    public void setFansWatched(Integer fansWatched) {
+        this.fansWatched = fansWatched;
+    }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "id=" + id +
+                ", matchComment='" + matchComment + '\'' +
+                ", duration=" + duration +
+                ", homeTeamName='" + homeTeamName + '\'' +
+                ", awayTeamName='" + awayTeamName + '\'' +
+                ", homeScore=" + homeScore +
+                ", awayScore=" + awayScore +
+                ", fieldTemperature=" + fieldTemperature +
+                ", fansWatched=" + fansWatched +
+                '}';
     }
 }
