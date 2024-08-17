@@ -1,60 +1,50 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Player Ranklist</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <title>Player Ranking</title>
     <style>
         body {
-            background-color: green;
-            color: orange;
+            background-color: #203fcf;
+            color: white;
             font-family: 'Times New Roman', Times, serif;
-        }
-        h1 {
-            color: black;
-            font-size: 18pt;
-            text-align: center;
-            margin-top: 20px;
         }
         table {
             width: 80%;
             margin: 20px auto;
             border-collapse: collapse;
-            font-size: 12pt;
-            color: black;
         }
         th, td {
-            border: 1px solid orange;
             padding: 10px;
+            border: 1px solid white;
             text-align: center;
         }
         th {
             background-color: #4ba3e5;
-            color: white;
-            font-size: 14pt;
         }
         tr:nth-child(even) {
-            background-color: rgba(255, 165, 0, 0.1);
+            background-color: #1a2a6f;
         }
     </style>
 </head>
 <body>
-    <h1>Player Ranklist</h1>
+    <h1 class="text-center">Player Ranking</h1>
     <table>
         <thead>
             <tr>
-                <th>Rank</th>
+                <th>ID</th>
                 <th>Name</th>
-                <th>Goals Scored</th>
+                <th>Scored Goals</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="player, iterStat : ${players}">
-                <td th:text="${iterStat.count}">1</td>
-                <td th:text="${player.name}">Player Name</td>
-                <td th:text="${player.goalsScored}">Goals Scored</td>
+            <tr th:each="player : ${players}">
+                <td th:text="${player.id}"></td>
+                <td th:text="${player.name}"></td>
+                <td th:text="${player.goalsScored}"></td>
             </tr>
         </tbody>
     </table>
 </body>
 </html>
+
