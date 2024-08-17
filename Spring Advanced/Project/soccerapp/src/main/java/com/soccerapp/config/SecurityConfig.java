@@ -1,4 +1,3 @@
-// app/src/main/java/com/soccerapp/config/SecurityConfig.java
 package com.soccerapp.config;
 
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .permitAll()
             .and()
             .logout()
+            .logoutUrl("/logout")
+            .logoutSuccessUrl("/login")
             .permitAll();
     }
 }
