@@ -1,9 +1,8 @@
-package com.soccerapp.service.impl;
+package com.soccerapp.service;
 
 import com.soccerapp.model.entity.Player;
 import com.soccerapp.repository.PlayerRepository;
-import com.soccerapp.repository.TeamRepository;
-import com.soccerapp.service.PlayerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,19 +11,14 @@ import java.util.UUID;
 @Service
 public class PlayerServiceImpl implements PlayerService {
 
-    private final PlayerRepository playerRepository;
-    private final TeamRepository teamRepository;
-
-    public PlayerServiceImpl(PlayerRepository playerRepository, TeamRepository teamRepository) {
-        this.playerRepository = playerRepository;
-        this.teamRepository = teamRepository;
-    }
+    @Autowired
+    private PlayerRepository playerRepository;
 
     @Override
     public Player addPlayer(String name, UUID teamId) {
         Player player = new Player();
         player.setName(name);
-        player.setTeam(teamRepository.findById(teamId).orElseThrow());
+        player.setTeamId(teamId);
         return playerRepository.save(player);
     }
 
@@ -35,7 +29,12 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public List<Player> getPlayersByTeam(UUID teamId) {
-        return playerRepository.findAllByTeamIdOrderByGoalsScoredDesc(teamId);
+        return playerRepository.findByTeamId(teamId);
+    }
+
+    @Override
+    public List<Player> getAllPlayers() {
+        return playerRepository.findAll();
     }
 
     @Override
