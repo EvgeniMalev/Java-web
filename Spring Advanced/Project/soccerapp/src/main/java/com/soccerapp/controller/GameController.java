@@ -1,10 +1,12 @@
 package com.soccerapp.controller;
 
 import com.soccerapp.model.GameCreateBindingModel;
+import com.soccerapp.model.entity.Game;
 import com.soccerapp.service.LoggedUser;
 import com.soccerapp.service.GameService;
 import com.soccerapp.service.TeamService;
 import com.soccerapp.service.PlayerService;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -22,12 +24,14 @@ public class GameController {
     private final GameService gameService;
     private final TeamService teamService;
     private final PlayerService playerService;
+    private final ModelMapper modelMapper;
 
-    public GameController(LoggedUser loggedUser, GameService gameService, TeamService teamService, PlayerService playerService) {
+    public GameController(LoggedUser loggedUser, GameService gameService, TeamService teamService, PlayerService playerService, ModelMapper modelMapper) {
         this.loggedUser = loggedUser;
         this.gameService = gameService;
         this.teamService = teamService;
         this.playerService = playerService;
+        this.modelMapper = modelMapper;
     }
     
     @GetMapping("/create")
@@ -56,7 +60,9 @@ public class GameController {
             return "game-add";
         }
 
-        gameService.createGame(gameCreateBindingModel);
+        Game game = modelMapper.map(gameCreateBindingModel, Game.class);
+
+        gameService.createGame(game);
         return "redirect:/games";
     }
 
