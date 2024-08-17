@@ -61,13 +61,13 @@ public class GameController {
         }
 
         Game game = modelMapper.map(gameCreateBindingModel, Game.class);
-
         gameService.createGame(game);
+
         return "redirect:/games";
     }
 
     @PostMapping("/start")
-    public ModelAndView startGame(GameCreateBindingModel gameCreateBindingModel) {
+    public ModelAndView startGame(@Valid @ModelAttribute("gameCreateBindingModel") GameCreateBindingModel gameCreateBindingModel) {
         if (!loggedUser.isLogged()) {
             return new ModelAndView("redirect:/login");
         }
@@ -79,7 +79,7 @@ public class GameController {
     }
 
     @PostMapping("/finish")
-    public ModelAndView finishGame(GameCreateBindingModel gameCreateBindingModel) {
+    public ModelAndView finishGame(@Valid @ModelAttribute("gameCreateBindingModel") GameCreateBindingModel gameCreateBindingModel) {
         if (!loggedUser.isLogged()) {
             return new ModelAndView("redirect:/login");
         }
@@ -96,11 +96,7 @@ public class GameController {
             return new ModelAndView("redirect:/login");
         }
 
-        boolean isRecorded = gameService.recordGoal(id);
-        if (isRecorded) {
-            playerService.incrementGoals(playerId);
-        }
-
+        gameService.recordGoal(id, playerId);
         return new ModelAndView("redirect:/home");
     }
 }
